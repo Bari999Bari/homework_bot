@@ -12,13 +12,13 @@ from telegram import TelegramError
 load_dotenv()
 
 PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN',
-                            default='asjdhjahdjklahsdfjkhasldf')
+                            default='AQAAAAA8HY7DAAYckXVXY0SlJcccl0FGNmamhC0')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN',
-                           default='asjdhjahdjklahsdfjkhasldf')
+                           default='5315268360:AAEfgmCXQ7o-JdffR2aiK6m920KSd9fZddw')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', default=999999)  # imes`a
 
 RETRY_TIME = int(os.getenv('RETRY_TIME', default=888))
-ENDPOINT = os.getenv('ENDPOINT', default='asjdhjahdjklahsdfjkhasldf')
+ENDPOINT = os.getenv('ENDPOINT', default='https://practicum.yandex.ru/api/user_api/homework_statuses/')
 HEADERS = {'Authorization': f'OAuth {PRACTICUM_TOKEN}'}
 
 HOMEWORK_STATUSES = {
