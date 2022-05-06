@@ -11,12 +11,12 @@ from telegram import TelegramError
 
 load_dotenv()
 
-PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN')
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')  # imes`a
+PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN') or 'dfsgfgsd'
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN') or 'dfsgfgsd'
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID') or 999999 # imes`a
 
-RETRY_TIME = int(os.getenv('RETRY_TIME'))
-ENDPOINT = os.getenv('ENDPOINT')
+RETRY_TIME = int(os.getenv('RETRY_TIME')) or 88
+ENDPOINT = os.getenv('ENDPOINT') or 'dfsgfgsd'
 HEADERS = {'Authorization': f'OAuth {PRACTICUM_TOKEN}'}
 
 HOMEWORK_STATUSES = {
