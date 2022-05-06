@@ -13,7 +13,7 @@ load_dotenv()
 
 PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN') or 'dfsgfgsd'
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN') or 'dfsgfgsd'
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID') or 999999 # imes`a
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID') or 999999  # imes`a
 
 RETRY_TIME = int(os.getenv('RETRY_TIME')) or 88
 ENDPOINT = os.getenv('ENDPOINT') or 'dfsgfgsd'
