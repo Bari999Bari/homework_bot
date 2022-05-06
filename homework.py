@@ -11,8 +11,10 @@ from telegram import TelegramError
 
 load_dotenv()
 
-PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN', default='asjdhjahdjklahsdfjkhasldf')
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN', default='asjdhjahdjklahsdfjkhasldf')
+PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN',
+                            default='asjdhjahdjklahsdfjkhasldf')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN',
+                           default='asjdhjahdjklahsdfjkhasldf')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', default=999999)  # imes`a
 
 RETRY_TIME = int(os.getenv('RETRY_TIME', default=888))
