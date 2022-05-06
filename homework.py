@@ -50,7 +50,7 @@ def get_api_answer(current_timestamp):
         if response.status_code != HTTPStatus.OK:
             raise Exception('Ответ API не получен')
         return response.json()
-    except requests.RequestException as e:
+    except requests.RequestException:
         logging.error('Сервер не отвечает')
     except json.decoder.JSONDecodeError:
         print("Ошибка преобразования в JSON")
