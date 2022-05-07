@@ -13,10 +13,10 @@ load_dotenv()
 
 PRACTICUM_TOKEN = os.getenv(
     'PRACTICUM_TOKEN',
-    default='AQAAAAA8HY7DAAYckXVXY0SlJcccl0FGNmamhC0')
+    default='AQAAAAA8HY7DAqwertVXY0SlJcccl0FGNmamhC0')
 TELEGRAM_TOKEN = os.getenv(
     'TELEGRAM_TOKEN',
-    default='5315268360:AAEfgmCXQ7o-JdffR2aiK6m920KSd9fZddw')
+    default='5315268360:AAEfgvertY-JdffR2aiK6m920KSd9fZddw')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', default=999999)  # imes`a
 
 RETRY_TIME = int(os.getenv('RETRY_TIME', default=888))
@@ -44,22 +44,21 @@ def send_message(bot, message):
         bot.send_message(TELEGRAM_CHAT_ID, message)
     except TelegramError:
         logging.error('Сбой при отправке сообщения')
-    time.sleep(RETRY_TIME)
 
 
 def get_api_answer(current_timestamp):
     """Делает запрос к серверу."""
-    timestamp = current_timestamp
-    params = {'from_date': timestamp}
+    params = {'from_date': current_timestamp}
     try:
         response = requests.get(url=ENDPOINT, headers=HEADERS, params=params)
         if response.status_code != HTTPStatus.OK:
             raise Exception('Ответ API не получен')
         return response.json()
     except requests.RequestException:
-        logging.error('Сервер не отвечает')
+        raise Exception('Сервер не отвечает')
+        # logging.error('Сервер не отвечает')
     except json.decoder.JSONDecodeError:
-        print("Ошибка преобразования в JSON")
+        raise Exception('Ошибка преобразования в JSON')
 
 
 def check_response(response):
@@ -78,7 +77,8 @@ def parse_status(homework):
     """Извлекает информацию о конкретной работе."""
     if not isinstance(homework, dict):
         raise TypeError(
-            'Тип значения конкретной домашки отличается от ожидаемого')
+            f'Тип значения домашки {type(homework)},'
+            f'ожидаемый тип dict')
     else:
         homework_name = homework.get('homework_name')
     if homework_name is None:
@@ -111,24 +111,25 @@ def main():
         logging.critical('Oтсутствие обязательных переменных'
                          ' окружения во время запуска бота')
     else:
+        error_text = ''
+        current_timestamp = int(time.time()) - 86400 * 30
         while True:
-            send_flag = True
             try:
-                current_timestamp = int(time.time()) - 86400 * 30
                 response = get_api_answer(current_timestamp)
+                current_timestamp = response.get('current_date')
                 homeworks = check_response(response)
-                for x in range(len(homeworks)):
-                    send_message(bot, parse_status(homeworks[x]))
+                for homework in homeworks:
+                    send_message(bot, parse_status(homework))
                     logging.info('Сообщение отправлено')
 
             except Exception as error:
-                logging.error('Недоступность эндпоинта')
-                if send_flag:
+                logging.error(f'Недоступность эндпоинта: {error}')
+                if error != error_text:
                     message = f'Сбой в работе программы: {error}'
                     send_message(bot, message)
-                    send_flag = False
-            else:
-                send_flag = True
+                    error_text = error
+            finally:
+                time.sleep(RETRY_TIME)
 
 
 if __name__ == '__main__':
