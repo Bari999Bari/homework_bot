@@ -120,7 +120,8 @@ def main():
                 for homework in homeworks:
                     send_message(bot, parse_status(homework))
                     logging.info('Сообщение отправлено')
-                current_timestamp = response.get('current_date', int(time.time()))
+                current_timestamp = response.get(
+                    'current_date', int(time.time()))
 
             except Exception as error:
                 logging.error(f'Недоступность эндпоинта: {error}')
