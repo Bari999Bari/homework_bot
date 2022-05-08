@@ -116,12 +116,13 @@ def main():
         while True:
             try:
                 response = get_api_answer(current_timestamp)
-                current_timestamp = response.get('current_date')
                 homeworks = check_response(response)
                 for homework in homeworks:
                     send_message(bot, parse_status(homework))
                     logging.info('Сообщение отправлено')
-
+                current_timestamp = response.get('current_date')
+                if current_timestamp is None:
+                    current_timestamp = int(time.time())
             except Exception as error:
                 logging.error(f'Недоступность эндпоинта: {error}')
                 if error != error_text:
